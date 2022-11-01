@@ -21,7 +21,49 @@ class BestBooks extends React.Component {
     } catch (error) {
       console.log('we have an error: ', error.response);
     }
-  };
+  }
+
+  handleBookSubmit = (event) => {
+    event.preventDefault();
+    let newBook = {
+      title: event.target.name.value,
+      // author: event.target.aurthor.value,
+      description: event.target.description.value,
+      status: event.target.status.checked
+    }
+  }
+
+  postBook = async (newBookObj) => {
+    try {
+      let url = `${process.env.REACT_APP_SERVER}/books`;
+
+      let createdBook = await axios.post(url, newBookObj);
+
+      this.setState({
+        books: [...this.state.books, createdBook.data]
+      })
+
+    } catch (error) {
+      console.log(error.message)
+    }
+  }
+
+  deleteBooks = async (id) => {
+    try {
+      let url = `${process.env.REACT_APP_SERVER}/books/${id}`;
+
+      await axios.delete(url);
+
+      let updatedBooks = this.state.books.filter(book => book._id !== id);
+
+      this.setState({
+        books: updatedBooks
+      });
+
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
 
   componentDidMount() {
     this.getBooks();

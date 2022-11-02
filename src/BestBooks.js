@@ -100,7 +100,7 @@ class BestBooks extends React.Component {
         <Button className="x" variant="dark" onClick={() => {this.deleteBooks(books._id);}}>Delete</Button>
       </Carousel.Item>
     ));
-    
+
     return (
       <>
         <h1>Books!</h1>

@@ -2,13 +2,16 @@ import React from 'react';
 import axios from 'axios';
 import { Carousel, Container, Button } from 'react-bootstrap';
 import BookModal from './BookModal.js';
+import UpdateModal from './UpdateModal.js';
 
 class BestBooks extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       books: [],
-      openModal: false
+      openModal: false,
+      updateModal: false,
+      bookToUpdate: null
     };
   }
   /* TODO: Make a GET request to your API to fetch all the books from the database  */
@@ -74,7 +77,7 @@ class BestBooks extends React.Component {
 
   updatedBooks = async (bookToUpdate) => {
     try {
-
+      console.log(bookToUpdate);
       let url = `${process.env.REACT_APP_SERVER}/books/${bookToUpdate._id}`;
       let updatedBooks = await axios.put(url, bookToUpdate);
 
@@ -109,6 +112,20 @@ class BestBooks extends React.Component {
     });
   };
 
+  updateCloseModal = () => {
+    this.setState({
+      updateModal: false,
+    });
+  };
+
+  updateOpenModal = (book) => {
+    this.setState({
+      updateModal: true,
+      bookToUpdate: book
+    });
+
+  };
+
   render() {
 
     let carouselItems = this.state.books.map((books, index) => (
@@ -119,6 +136,7 @@ class BestBooks extends React.Component {
         <Carousel.Caption>
         </Carousel.Caption>
         <Button className="x" variant="dark" onClick={() => { this.deleteBooks(books._id); }}>Delete</Button>
+        <Button onClick={()=> this.updateOpenModal (books)}>Update Book</Button>
       </Carousel.Item>
     ));
 
@@ -146,6 +164,15 @@ class BestBooks extends React.Component {
           handleCloseModal={this.handleCloseModal}
           handleBookSubmit={this.handleBookSubmit}
         />
+        { this.state.bookToUpdate &&
+        <UpdateModal
+          updateModal={this.state.updateModal}
+          updateCloseModal={this.updateCloseModal}
+          updatedBooks={this.updatedBooks}
+          bookToUpdate={this.state.bookToUpdate}
+          books={this.state.books}
+        />
+        }
       </>
     );
   }

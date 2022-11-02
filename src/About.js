@@ -1,4 +1,4 @@
-import { Component } from "react";
+import { Component } from 'react';
 import {Card} from 'react-bootstrap';
 import JonathanImage from './jonathan.jpg';
 import JordanImage from './jordan.jpg';

@@ -101,7 +101,6 @@ class BestBooks extends React.Component {
       </Carousel.Item>
     ));
     
-    
     return (
       <>
         <h1>Books!</h1>

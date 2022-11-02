@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import { Carousel, Container, Button} from 'react-bootstrap';
+import { Carousel, Container, Button } from 'react-bootstrap';
 import BookModal from './BookModal.js';
 
 class BestBooks extends React.Component {
@@ -34,7 +34,7 @@ class BestBooks extends React.Component {
       status: event.target.status.checked
     };
     this.setState({
-      openModal:false
+      openModal: false
     });
     this.postBook(newBook);
   };
@@ -72,6 +72,27 @@ class BestBooks extends React.Component {
     }
   };
 
+  updatedBooks = async (bookToUpdate) => {
+    try {
+
+      let url = `${process.env.REACT_APP_SERVER}/books/${bookToUpdate._id}`;
+      let updatedBooks = await axios.put(url, bookToUpdate);
+
+      let updatedBooksArray = this.state.books.map(existingBook => {
+        return existingBook._id === bookToUpdate._id
+          ? updatedBooks.data
+          : existingBook;
+      });
+
+      this.setState({
+        books: updatedBooksArray
+      });
+
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
   componentDidMount() {
     this.getBooks();
   }
@@ -97,7 +118,7 @@ class BestBooks extends React.Component {
         <p>{books.status}</p>
         <Carousel.Caption>
         </Carousel.Caption>
-        <Button className="x" variant="dark" onClick={() => {this.deleteBooks(books._id);}}>Delete</Button>
+        <Button className="x" variant="dark" onClick={() => { this.deleteBooks(books._id); }}>Delete</Button>
       </Carousel.Item>
     ));
 

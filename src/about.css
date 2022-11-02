@@ -15,10 +15,16 @@ main{
   overflow: auto;
   padding: 5px;
   cursor: pointer;
-} */ */
+} */
 .jordan{
   width: 30%
 }
 .jonny {
   width: 100%;
+}
+
+.x {
+  position: relative;
+  left: 500px;
+  cursor: pointer;
 }

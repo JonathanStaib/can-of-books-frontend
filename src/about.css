@@ -22,3 +22,9 @@ main{
 .jonny {
   width: 100%;
 }
+
+.x {
+  position: relative;
+  left: 500px;
+  cursor: pointer;
+}

@@ -172,7 +172,7 @@ class BestBooks extends React.Component {
           bookToUpdate={this.state.bookToUpdate}
           books={this.state.books}
         />
-        } 
+        }
       </>
     );
   }

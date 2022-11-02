@@ -48,7 +48,7 @@ class updateBooks extends React.Component {
             </Modal.Body>
 
 
-          </Modal> 
+          </Modal>
         </div >
       </>
 
